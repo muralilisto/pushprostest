@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Muralidharan-Frontend Test</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Include Handlebars from a CDN -->
+
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+  // compile the template
+  var template = Handlebars.compile("Handlebars <b>{{doesWhat}}</b>");
+  // execute the compiled template and print the output to the console
+  console.log(template({ doesWhat: "rocks!" }));
+</script>
+</head>
+
+<body>
+	<div class="container" style="margin-top:50px;">
+    <button type="button" class="btn btn-default" style="float:right;background-color:blue; color:white" id="get-data">Load Data</button>
+	<table class="table table-striped" id="show-data">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>url</th>		
+      </tr>
+    </thead>
+	<tbody>
+		
+	</tbody>
+	</table>
+	
+	</div>
+</body>
+<script>
+	$(document).ready(function () {
+	
+		$('#get-data').click(function () {
+		
+		$('#show-data tbody').empty();
+		$.getJSON('http://aimtell.com/files/sites.json', function (data) {
+			console.log(data);
+			var showdata = '';		
+			$.each(data.sites, function(key, value){
+			
+				showdata += '<tr>';
+				showdata += '<td>'+data.sites[key].id+'</td>';
+				showdata += '<td>'+data.sites[key].name+'</td>';
+				showdata += '<td>'+data.sites[key].url+'</td>';
+				showdata += '</tr>';
+			});
+			$('#show-data').append(showdata);
+		});
+		
+		
+		});
+	});
+</script>
+</html>
